@@ -1,0 +1,31 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/">YouthHostel</a>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+        </li>
+
+        <ng-container *ngIf="!isLoggedIn()">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/register" routerLinkActive="active">Register</a>
+          </li>
+        </ng-container>
+
+        <ng-container *ngIf="isLoggedIn()">
+          <li class="nav-item">
+            <a class="nav-link">{{ getUsername() }}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" (click)="onLogout()">Logout</a>
+          </li>
+        </ng-container>
+      </ul>
+    </div>
+  </div>
+</nav>

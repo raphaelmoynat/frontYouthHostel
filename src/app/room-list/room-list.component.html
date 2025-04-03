@@ -1,0 +1,82 @@
+<div class="container mt-4">
+  <div *ngIf="authService.isStaff()">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h1>Gestion des chambres</h1>
+      <a routerLink="/rooms/create" class="btn btn-primary">Ajouter une chambre</a>
+    </div>
+
+    <div *ngIf="errorMessage" class="alert alert-danger">
+      {{errorMessage}}
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nom</th>
+          <th>Lits totaux</th>
+          <th>Lits disponibles</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let room of rooms">
+          <td>{{room.id}}</td>
+          <td>{{room.name}}</td>
+          <td>{{room.totalBeds}}</td>
+          <td>{{room.availableBeds}}</td>
+          <td>
+            <button (click)="openDetailsModal(room)" class="btn btn-sm btn-info me-2">Voir détails</button>
+            <a [routerLink]="['/rooms/edit', room.id]" class="btn btn-sm btn-warning me-2">Modifier</a>
+            <button (click)="deleteRoom(room.id)" class="btn btn-sm btn-danger">Supprimer</button>
+          </td>
+        </tr>
+        <tr *ngIf="rooms.length === 0">
+          <td colspan="5" class="text-center">Aucune chambre trouvée</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div *ngIf="!authService.isStaff()">
+    <h1 class="text-center mb-5">Nos Chambres</h1>
+
+    <div *ngIf="errorMessage" class="alert alert-danger">
+      {{errorMessage}}
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+      <div *ngFor="let room of rooms" class="col">
+        <div class="card h-100 shadow-sm">
+          <img src="https://placehold.co/600x400?text=Chambre+{{room.id}}" class="card-img-top" alt="{{room.name}}">
+          <div class="card-body">
+            <h5 class="card-title">{{room.name}}</h5>
+            <p class="card-text">Une chambre avec {{room.totalBeds}} lit(s).</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="badge bg-success">{{room.availableBeds}} lit(s) disponible(s)</span>
+              <div>
+                <button (click)="openDetailsModal(room)" class="btn btn-info btn-sm me-2">Voir détails</button>
+                <a href="#" class="btn btn-primary btn-sm">Réserver</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="rooms.length === 0" class="col-12 text-center">
+        <p class="alert alert-info">Aucune chambre disponible actuellement.</p>
+      </div>
+    </div>
+  </div>
+
+
+  <app-room-details-modal
+    *ngIf="selectedRoom"
+    [room]="selectedRoom"
+    [isOpen]="isModalOpen"
+    (isOpenChange)="isModalOpen = $event"
+    (bedsUpdated)="onBedsUpdated()">
+  </app-room-details-modal>
+</div>

@@ -25,8 +25,6 @@ export class LoginComponent {
     this.errorMessage = ''
     this.authService.login(this.username, this.password).subscribe({
       next: (response: any) => {
-        this.authService.saveToken(response.access)
-        this.authService.saveUsername(this.username)
         this.router.navigate(['/'])
       },
       error: (error) => {

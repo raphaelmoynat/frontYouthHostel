@@ -26,22 +26,22 @@ export class RoomDetailsModalComponent {
   ) {}
 
   closeModal() {
-    this.isOpen = false;
-    this.isOpenChange.emit(false);
+    this.isOpen = false
+    this.isOpenChange.emit(false)
   }
 
   openBedCreateModal() {
-    this.isBedModalOpen = true;
+    this.isBedModalOpen = true
   }
 
   onBedCreated(newBed: any) {
     if (this.room && this.room.beds) {
-      this.room.beds.push(newBed);
+      this.room.beds.push(newBed)
       if (this.room.totalBeds !== undefined) {
-        this.room.totalBeds += 1;
+        this.room.totalBeds += 1
       }
     }
-    this.bedsUpdated.emit();
+    this.bedsUpdated.emit()
   }
 
   deleteBed(bedId: number) {
@@ -49,24 +49,23 @@ export class RoomDetailsModalComponent {
       const headers = new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this.authService.getToken()}`
-      });
+      })
 
       this.http.delete(`https://hostel.raphaelmoynat.com/api/staff/bed/delete/${bedId}`, { headers })
         .subscribe({
           next: () => {
             if (this.room && this.room.beds) {
-              this.room.beds = this.room.beds.filter((bed: any) => bed.id !== bedId);
+              this.room.beds = this.room.beds.filter((bed: any) => bed.id !== bedId)
               if (this.room.totalBeds !== undefined) {
-                this.room.totalBeds -= 1;
+                this.room.totalBeds -= 1
               }
             }
-            this.bedsUpdated.emit();
+            this.bedsUpdated.emit()
           },
           error: (error) => {
-            console.error('Erreur lors de la suppression du lit', error);
-            alert('Impossible de supprimer le lit');
+            alert('Impossible de supprimer le lit')
           }
-        });
+        })
     }
   }
 }

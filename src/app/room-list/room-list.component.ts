@@ -36,7 +36,7 @@ export class RoomListComponent implements OnInit {
   }
 
   deleteRoom(id: number) {
-    if (confirm('Êtes-vous sûr de vouloir supprimer cette chambre?')) {
+    if (confirm('Êtes vous sûr de vouloir supprimer cette chambre?')) {
       this.roomService.deleteRoom(id).subscribe({
         next: () => {
           this.loadRooms()
@@ -50,17 +50,16 @@ export class RoomListComponent implements OnInit {
   }
 
   openDetailsModal(room: any) {
-    this.selectedRoom = room;
-    this.isModalOpen = true;
+    this.selectedRoom = room
+    this.isModalOpen = true
   }
 
   handleModalClose(isOpen: boolean) {
-    this.isModalOpen = isOpen;
+    this.isModalOpen = isOpen
   }
 
   onBedsUpdated() {
-    // Recharger les chambres pour avoir les données à jour
-    this.loadRooms();
+    this.loadRooms()
   }
 
 }

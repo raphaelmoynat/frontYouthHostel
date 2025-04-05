@@ -1,0 +1,20 @@
+<div class="container mt-4">
+  <h1 class="mb-4">Équipe du personnel</h1>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <div class="row">
+    <div *ngFor="let staff of staffMembers" class="col-md-4 mb-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">
+            {{ staff.firstName }} {{ staff.lastName }}
+          </h5>
+          <p class="card-text">{{ staff.description }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

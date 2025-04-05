@@ -1,0 +1,40 @@
+<div class="container mt-4" *ngIf="authService.isAdmin()">
+  <h1 class="mb-4">Gestion des utilisateurs</h1>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="successMessage" class="alert alert-success">
+    {{ successMessage }}
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nom d'utilisateur</th>
+        <th>Rôles</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.id }}</td>
+        <td>{{ user.username }}</td>
+        <td>
+            <span *ngFor="let role of user.roles" class="badge bg-primary me-1">{{ role }}</span>
+        </td>
+        <td>
+          <button
+            (click)="updateUserRole(user.id, user.roles)"
+            class="btn btn-warning">
+            Changer rôle
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

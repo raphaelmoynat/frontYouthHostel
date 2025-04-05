@@ -1,0 +1,86 @@
+<!-- src/app/my-bookings/my-bookings.component.html -->
+<div class="container mt-4">
+  <h1 class="mb-4">Mes réservations</h1>
+
+  <div *ngIf="isLoading" class="text-center">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Chargement...</span>
+    </div>
+    <p class="mt-2">Chargement de vos réservations...</p>
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="!isLoading && bookings.length === 0" class="alert alert-info">
+    Vous n'avez pas encore de réservation.
+    <a routerLink="/rooms" class="alert-link">Réservez une chambre maintenant</a>
+  </div>
+
+  <div *ngIf="bookings.length > 0" class="row row-cols-1 row-cols-md-2 g-4">
+    <div *ngFor="let booking of bookings" class="col">
+      <div class="card h-100">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <span>Réservation #{{ booking.id }}</span>
+          <span class="badge {{ getStatusLabel(booking.status).cssClass }}">
+            {{ getStatusLabel(booking.status).label }}
+          </span>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">
+            {{ getRoomNames(booking) }}
+          </h5>
+          <p class="card-text">
+            Du {{ formatDate(booking.startDate) }} au {{ formatDate(booking.endDate) }}
+          </p>
+
+          <div class="mb-3">
+            <strong>Montant total:</strong> {{ booking.totalAmount }} €
+          </div>
+
+          <div class="mb-3">
+            <strong>Détails:</strong>
+            <ul class="list-unstyled">
+              <li>
+                <small>{{ booking.beds.length }} lit(s)</small>
+              </li>
+              <li *ngIf="booking.extras?.breakfast">
+                <small>Petit-déjeuner inclus</small>
+              </li>
+              <li *ngIf="booking.extras?.towels">
+                <small>{{ booking.extras.towels }} serviette(s)</small>
+              </li>
+              <li *ngIf="booking.extras?.luggage_service">
+                <small>Service bagages</small>
+              </li>
+            </ul>
+          </div>
+
+          <div class="card-text">
+            <small class="text-muted">Réservé au nom de {{ booking.firstName }} {{ booking.lastName }}</small>
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <div class="d-grid gap-2">
+            <button
+              *ngIf="booking.status === 'waiting payment'"
+              class="btn btn-primary"
+              disabled
+            >
+              Payer maintenant
+            </button>
+            <button
+              *ngIf="booking.status !== 'cancelled'"
+              class="btn btn-outline-danger"
+              disabled
+            >
+              Annuler
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

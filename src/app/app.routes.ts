@@ -8,6 +8,10 @@ import {RoomCreateComponent} from './room-create/room-create.component';
 import {RoomEditComponent} from './room-edit/room-edit.component';
 import {UserManagementComponent} from './user-management/user-management.component';
 import {StaffListComponent} from './staff-list/staff-list.component';
+import {PaymentSuccessComponent} from './success/success.component';
+import {CancelComponent} from './cancel/cancel.component';
+import {MyBookingsComponent} from './my-bookings/my-bookings.component';
+import {BookingManagementComponent} from './booking-management/booking-management.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -18,6 +22,13 @@ export const routes: Routes = [
   { path: 'rooms/edit/:id', component: RoomEditComponent },
   { path: 'staff', component: StaffListComponent },
   { path: 'users', component: UserManagementComponent },
+  { path: 'payment-success', component: PaymentSuccessComponent },
+  { path: 'payment-cancel', component: CancelComponent },
+  {path: 'my-bookings', component: MyBookingsComponent},
+  {
+    path: 'admin/bookings',
+    component: BookingManagementComponent,
+  },
   { path: '**', redirectTo: '' }
 ]
 

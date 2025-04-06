@@ -63,11 +63,11 @@ export class BookingModalComponent {
     this.bookingService.createBooking(this.bookingData).subscribe({
       next: (response: any) => {
         if (response.success && response.paymentIntentId) {
-          this.successMessage = 'Réservation créée, traitement du paiement...'
+          this.successMessage = 'Réservation créée, traitement du paiement'
           this.stripeService.confirmPaymentWithStripe(response.paymentIntentId).subscribe({
             next: (paymentResult: any) => {
               if (paymentResult.status === 'succeeded') {
-                this.successMessage = 'Paiement réussi! Redirection...'
+                this.successMessage = 'Paiement réussi'
 
                 setTimeout(() => {
                   this.router.navigate(['/payment-success'], {

@@ -42,7 +42,6 @@
 
   <div *ngIf="!authService.isStaff()">
     <h1 class="text-center mb-5">Nos Chambres</h1>
-
     <div *ngIf="errorMessage" class="alert alert-danger">
       {{errorMessage}}
     </div>
@@ -58,8 +57,7 @@
               <span class="badge bg-success">{{room.availableBeds}} lit(s) disponible(s)</span>
               <div>
                 <button (click)="openDetailsModal(room)" class="btn btn-info btn-sm me-2">Voir détails</button>
-                <a href="#" class="btn btn-primary btn-sm">Réserver</a>
-              </div>
+                <button (click)="openBookingModal(room)" class="btn btn-primary btn-sm">Réserver</button>              </div>
             </div>
           </div>
         </div>
@@ -79,4 +77,11 @@
     (isOpenChange)="isModalOpen = $event"
     (bedsUpdated)="onBedsUpdated()">
   </app-room-details-modal>
+
+  <app-booking-modal
+    *ngIf="selectedRoom"
+    [room]="selectedRoom"
+    [isOpen]="isBookingModalOpen"
+    (isOpenChange)="handleBookingModalClose($event)">
+  </app-booking-modal>
 </div>

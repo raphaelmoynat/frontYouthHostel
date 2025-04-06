@@ -1,4 +1,3 @@
-// src/app/my-bookings/my-bookings.component.ts
 import { Component, OnInit } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { RouterLink } from '@angular/router'
@@ -38,14 +37,12 @@ export class MyBookingsComponent implements OnInit {
     })
   }
 
-  // Utilitaire pour formater les dates
   formatDate(dateString: string) {
     if (!dateString) return ''
     const date = new Date(dateString)
     return date.toLocaleDateString()
   }
 
-  // Traduire le statut en français
   getStatusLabel(status: string) {
     const statusMap: { [key: string]: { label: string, cssClass: string } } = {
       'confirmed': { label: 'Confirmée', cssClass: 'bg-success' },

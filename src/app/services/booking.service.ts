@@ -27,7 +27,6 @@ export class BookingService {
     return this.http.post(`${this.apiUrl}/api/create/booking`, bookingData, this.getHeaders())
   }
 
-  // Nouvelle méthode pour récupérer les réservations de l'utilisateur
   getMyBookings() {
     return this.http.get(`${this.apiUrl}/api/my-bookings`, this.getHeaders())
   }
@@ -36,12 +35,9 @@ export class BookingService {
     return this.http.get(`${this.apiUrl}/api/staff/bookings`, this.getHeaders())
   }
 
-  // Confirmer une réservation
   confirmBooking(bookingId: number) {
     return this.http.post(`${this.apiUrl}/api/staff/confirm/booking/${bookingId}`, {}, this.getHeaders())
   }
-
-  // Annuler une réservation
   cancelBooking(bookingId: number) {
     return this.http.delete(`${this.apiUrl}/api/staff/cancel/booking/${bookingId}`, this.getHeaders())
   }

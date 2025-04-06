@@ -42,7 +42,7 @@ export class UserManagementComponent implements OnInit {
 
     this.userService.updateUserRole(userId, newRole).subscribe({
       next: (response: any) => {
-        this.successMessage = 'Rôle mis à jour'
+        this.successMessage = 'Role mis à jour'
         this.loadUsers()
       },
       error: (error) => {

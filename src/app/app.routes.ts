@@ -25,11 +25,8 @@ export const routes: Routes = [
   { path: 'payment-success', component: PaymentSuccessComponent },
   { path: 'payment-cancel', component: CancelComponent },
   {path: 'my-bookings', component: MyBookingsComponent},
-  {
-    path: 'admin/bookings',
-    component: BookingManagementComponent,
-  },
-  { path: '**', redirectTo: '' }
+  {path: 'admin/bookings', component: BookingManagementComponent,},
+
 ]
 
 @NgModule({

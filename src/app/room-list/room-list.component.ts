@@ -4,11 +4,12 @@ import { RoomService } from '../services/room.service'
 import { RouterLink } from '@angular/router'
 import {AuthService} from '../services/auth.service';
 import {RoomDetailsModalComponent} from '../room-details-modal/room-details-modal.component';
+import { BookingModalComponent } from '../booking/booking-modal.component'; // Ce chemin est-il correct?
 
 @Component({
   selector: 'app-room-list',
   standalone: true,
-  imports: [CommonModule, RouterLink, RoomDetailsModalComponent],
+  imports: [CommonModule, RouterLink, RoomDetailsModalComponent, BookingModalComponent],
   templateUrl: './room-list.component.html'
 })
 export class RoomListComponent implements OnInit {
@@ -16,6 +17,7 @@ export class RoomListComponent implements OnInit {
   errorMessage = ''
   selectedRoom: any = null
   isModalOpen = false
+  isBookingModalOpen = false
 
   constructor(private roomService: RoomService,  public authService: AuthService) { }
 
@@ -57,6 +59,18 @@ export class RoomListComponent implements OnInit {
   handleModalClose(isOpen: boolean) {
     this.isModalOpen = isOpen
   }
+
+  openBookingModal(room: any) {
+    this.selectedRoom = room
+    this.isBookingModalOpen = true
+  }
+
+
+
+  handleBookingModalClose(value: boolean) {
+    this.isBookingModalOpen = value
+  }
+
 
   onBedsUpdated() {
     this.loadRooms()

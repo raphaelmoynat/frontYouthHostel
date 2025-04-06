@@ -25,6 +25,10 @@ export class NavbarComponent {
     return this.authService.isAdmin()
   }
 
+  isStaff() {
+    return this.authService.isStaff()
+  }
+
   getUsername() {
     return this.authService.getUsername()
   }

@@ -31,6 +31,7 @@ export class BookingModalComponent {
     }
   }
 
+  selectedBedIds: number[] = [];
   errorMessage = ''
   successMessage = ''
   isLoading = false
@@ -43,11 +44,44 @@ export class BookingModalComponent {
 
   ngOnChanges() {
     if (this.room) {
+      // Initialise les rooms sans les beds
       this.bookingData.rooms = [{
         id: this.room.id,
-        beds: this.room.beds.map((bed: any) => ({ id: bed.id }))
-      }]
+        beds: []
+      }];
+
+      // Vide la sélection des lits
+      this.selectedBedIds = [];
     }
+  }
+
+  // Vérifie si un lit est sélectionné
+  isBedSelected(bedId: number): boolean {
+    return this.selectedBedIds.includes(bedId);
+  }
+
+  // Bascule la sélection d'un lit
+  toggleBedSelection(bedId: number) {
+    if (this.isBedSelected(bedId)) {
+      this.selectedBedIds = this.selectedBedIds.filter(id => id !== bedId);
+    } else {
+      this.selectedBedIds.push(bedId);
+    }
+
+    // Met à jour les lits sélectionnés dans bookingData
+    this.updateSelectedBeds();
+  }
+
+  // Met à jour la liste des lits sélectionnés dans bookingData
+  updateSelectedBeds() {
+    if (this.bookingData.rooms.length > 0) {
+      this.bookingData.rooms[0].beds = this.selectedBedIds.map(id => ({ id }));
+    }
+  }
+
+  // Retourne le nombre de lits sélectionnés
+  getSelectedBedCount(): number {
+    return this.selectedBedIds.length;
   }
 
   closeModal() {
@@ -59,6 +93,16 @@ export class BookingModalComponent {
     this.errorMessage = ''
     this.successMessage = ''
     this.isLoading = true
+
+    // Vérifie qu'au moins un lit est sélectionné
+    if (this.getSelectedBedCount() === 0) {
+      this.errorMessage = 'Veuillez sélectionner au moins un lit';
+      this.isLoading = false;
+      return;
+    }
+
+    // Met à jour les lits sélectionnés une dernière fois avant d'envoyer
+    this.updateSelectedBeds();
 
     this.bookingService.createBooking(this.bookingData).subscribe({
       next: (response: any) => {

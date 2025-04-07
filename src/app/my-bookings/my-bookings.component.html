@@ -43,6 +43,9 @@
             <strong>Détails:</strong>
             <ul class="list-unstyled">
               <li>
+                <small>Chambre : {{ getRoomNames(booking) }}</small>
+              </li>
+              <li>
                 <small>{{ booking.beds.length }} lit(s)</small>
               </li>
               <li *ngIf="booking.extras?.breakfast">

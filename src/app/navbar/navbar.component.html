@@ -4,11 +4,12 @@
 
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
-        </li>
+
 
         <ng-container *ngIf="!isLoggedIn()">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/" >Home</a>
+          </li>
           <li class="nav-item">
             <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
           </li>
@@ -22,22 +23,22 @@
             <a class="nav-link">{{ getUsername() }}</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#" (click)="onLogout()">Logout</a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" routerLink="/rooms" routerLinkActive="active">Chambres</a>
-          </li>
-          <li class="nav-item" *ngIf="isAdmin()">
-            <a class="nav-link" routerLink="/users" routerLinkActive="active">Gestion Utilisateurs</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" routerLink="/staff" routerLinkActive="active">Personnel</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="!isStaff() && !isAdmin()" >
             <a class="nav-link" routerLink="/my-bookings" routerLinkActive="active">Mes réservations</a>
+          </li>
+          <li class="nav-item" *ngIf="isAdmin()">
+            <a class="nav-link" routerLink="/users" routerLinkActive="active">Gestion Utilisateurs</a>
           </li>
           <li class="nav-item" *ngIf="isStaff()">
             <a class="nav-link" routerLink="/admin/bookings" routerLinkActive="active">Gestion des réservations</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" (click)="onLogout()">Logout</a>
           </li>
         </ng-container>
       </ul>

@@ -61,25 +61,6 @@
             <small class="text-muted">Réservé au nom de {{ booking.firstName }} {{ booking.lastName }}</small>
           </div>
         </div>
-
-        <div class="card-footer">
-          <div class="d-grid gap-2">
-            <button
-              *ngIf="booking.status === 'waiting payment'"
-              class="btn btn-primary"
-              disabled
-            >
-              Payer maintenant
-            </button>
-            <button
-              *ngIf="booking.status !== 'cancelled'"
-              class="btn btn-outline-danger"
-              disabled
-            >
-              Annuler
-            </button>
-          </div>
-        </div>
       </div>
     </div>
   </div>

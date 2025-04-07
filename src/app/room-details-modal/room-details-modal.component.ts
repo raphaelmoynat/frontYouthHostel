@@ -1,4 +1,3 @@
-// src/app/components/room-details-modal/room-details-modal.component.ts
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http'; // Ajoutez HttpClient ici
@@ -67,5 +66,53 @@ export class RoomDetailsModalComponent {
           }
         })
     }
+  }
+
+  markBedAsClean(bedId: number) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${this.authService.getToken()}`
+    });
+
+    this.http.patch(`https://hostel.raphaelmoynat.com/api/staff/bed/clean/${bedId}`, {}, { headers })
+      .subscribe({
+        next: (response: any) => {
+          if (this.room && this.room.beds) {
+            const bedIndex = this.room.beds.findIndex((bed: any) => bed.id === bedId);
+            if (bedIndex !== -1) {
+              this.room.beds[bedIndex].isCleaned = true;
+            }
+          }
+          this.bedsUpdated.emit()
+        },
+        error: (error) => {
+          alert('impossible')
+          console.error(error)
+        }
+      })
+  }
+
+  markBedAsNotClean(bedId: number) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${this.authService.getToken()}`
+    });
+
+    this.http.patch(`https://hostel.raphaelmoynat.com/api/staff/bed/not-clean/${bedId}`, {}, { headers })
+      .subscribe({
+        next: (response: any) => {
+          if (this.room && this.room.beds) {
+            const bedIndex = this.room.beds.findIndex((bed: any) => bed.id === bedId)
+            if (bedIndex !== -1) {
+              this.room.beds[bedIndex].isCleaned = false
+            }
+          }
+          this.bedsUpdated.emit()
+        },
+        error: (error) => {
+          alert('impossible')
+          console.error(error)
+        }
+      })
   }
 }

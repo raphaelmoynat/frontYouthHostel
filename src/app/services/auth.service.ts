@@ -16,7 +16,6 @@ export class AuthService {
       password: password
     }).pipe(
       tap((response: any) => {
-        this.saveToken(response.token || response.access)
         this.saveUsername(username)
         if (response.roles) {
           this.saveRole(response.roles)

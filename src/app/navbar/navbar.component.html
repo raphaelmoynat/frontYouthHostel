@@ -25,9 +25,6 @@
           <li class="nav-item">
             <a class="nav-link" routerLink="/rooms" routerLinkActive="active">Chambres</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/staff" routerLinkActive="active">Personnel</a>
-          </li>
           <li class="nav-item" *ngIf="!isStaff() && !isAdmin()" >
             <a class="nav-link" routerLink="/my-bookings" routerLinkActive="active">Mes réservations</a>
           </li>

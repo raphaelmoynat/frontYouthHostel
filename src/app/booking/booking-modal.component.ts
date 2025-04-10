@@ -50,38 +50,31 @@ export class BookingModalComponent {
         beds: []
       }];
 
-      // Vide la sélection des lits
       this.selectedBedIds = [];
     }
   }
 
-  // Vérifie si un lit est sélectionné
   isBedSelected(bedId: number): boolean {
-    return this.selectedBedIds.includes(bedId);
+    return this.selectedBedIds.includes(bedId)
   }
 
-  // Bascule la sélection d'un lit
   toggleBedSelection(bedId: number) {
     if (this.isBedSelected(bedId)) {
       this.selectedBedIds = this.selectedBedIds.filter(id => id !== bedId);
     } else {
-      this.selectedBedIds.push(bedId);
+      this.selectedBedIds.push(bedId)
     }
-
-    // Met à jour les lits sélectionnés dans bookingData
-    this.updateSelectedBeds();
+    this.updateSelectedBeds()
   }
 
-  // Met à jour la liste des lits sélectionnés dans bookingData
   updateSelectedBeds() {
     if (this.bookingData.rooms.length > 0) {
-      this.bookingData.rooms[0].beds = this.selectedBedIds.map(id => ({ id }));
+      this.bookingData.rooms[0].beds = this.selectedBedIds.map(id => ({ id }))
     }
   }
 
-  // Retourne le nombre de lits sélectionnés
   getSelectedBedCount(): number {
-    return this.selectedBedIds.length;
+    return this.selectedBedIds.length
   }
 
   closeModal() {
@@ -94,15 +87,15 @@ export class BookingModalComponent {
     this.successMessage = ''
     this.isLoading = true
 
-    // Vérifie qu'au moins un lit est sélectionné
     if (this.getSelectedBedCount() === 0) {
-      this.errorMessage = 'Veuillez sélectionner au moins un lit';
-      this.isLoading = false;
-      return;
+      this.errorMessage = 'Veuillez sélectionner au moins un lit'
+      this.isLoading = false
+      return
     }
 
-    // Met à jour les lits sélectionnés une dernière fois avant d'envoyer
-    this.updateSelectedBeds();
+    this.updateSelectedBeds()
+
+    console.log('Données à envoyer:', JSON.stringify(this.bookingData))
 
     this.bookingService.createBooking(this.bookingData).subscribe({
       next: (response: any) => {
@@ -128,16 +121,19 @@ export class BookingModalComponent {
               }
             },
             error: (error) => {
+              console.error(error)
               this.errorMessage = 'Erreur lors du traitement du paiement'
               this.isLoading = false
             }
           })
         } else {
+
           this.errorMessage = 'Erreur lors de la création de la réservation'
           this.isLoading = false
         }
       },
       error: (error) => {
+        console.error(error)
         this.errorMessage = 'Erreur lors de la création de la réservation'
         this.isLoading = false
       }

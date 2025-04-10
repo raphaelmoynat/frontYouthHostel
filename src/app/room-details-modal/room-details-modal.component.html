@@ -42,11 +42,11 @@
                 <button class="btn btn-sm btn-danger" (click)="deleteBed(bed.id)">
                   Supprimer
                 </button>
-                <button *ngIf="!bed.isCleaned" class="btn btn-sm btn-success me-1" (click)="markBedAsClean(bed.id)">
-                  Marquer propre
+                <button *ngIf="!bed.isCleaned" class="btn btn-sm btn-success ms-2" (click)="markBedAsClean(bed.id)">
+                  Marquer nettoyé
                 </button>
-                <button *ngIf="bed.isCleaned" class="btn btn-sm btn-warning" (click)="markBedAsNotClean(bed.id)">
-                  Marquer sale
+                <button *ngIf="bed.isCleaned" class="btn btn-sm btn-warning ms-2" (click)="markBedAsNotClean(bed.id)">
+                  Marquer à nettoyer
                 </button>
               </td>
             </tr>

@@ -4,7 +4,7 @@ import { RoomService } from '../services/room.service'
 import { RouterLink } from '@angular/router'
 import {AuthService} from '../services/auth.service';
 import {RoomDetailsModalComponent} from '../room-details-modal/room-details-modal.component';
-import { BookingModalComponent } from '../booking/booking-modal.component'; // Ce chemin est-il correct?
+import { BookingModalComponent } from '../booking/booking-modal.component'
 
 @Component({
   selector: 'app-room-list',
